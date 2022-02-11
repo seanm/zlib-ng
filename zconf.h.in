@@ -96,6 +96,13 @@
 #  define Z_EXPORTVA
 #endif
 
+/* Conditional exports */
+#ifdef ZLIB_COMPAT
+#  define ZNG_CONDEXPORT Z_INTERNAL
+#else
+#  define ZNG_CONDEXPORT Z_EXPORT
+#endif
+
 /* For backwards compatibility */
 
 #ifndef ZEXTERN

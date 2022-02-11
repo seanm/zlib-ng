@@ -223,10 +223,9 @@ const char *zlibng_version(void);
    is automatically made by deflateInit and inflateInit.
  */
 
-/*
 Z_EXTERN Z_EXPORT
-int zng_deflateInit(zng_stream *strm, int level);
-
+int32_t zng_deflateInit(zng_stream *strm, int32_t level);
+/*
      Initializes the internal stream state for compression.  The fields
    zalloc, zfree and opaque must be initialized before by the caller.  If
    zalloc and zfree are set to NULL, deflateInit updates them to use default
@@ -376,10 +375,9 @@ int32_t zng_deflateEnd(zng_stream *strm);
 */
 
 
-/*
 Z_EXTERN Z_EXPORT
-int zng_inflateInit(zng_stream *strm);
-
+int32_t zng_inflateInit(zng_stream *strm);
+/*
      Initializes the internal stream state for decompression.  The fields
    next_in, avail_in, zalloc, zfree and opaque must be initialized before by
    the caller.  In the current version of inflate, the provided input is not
@@ -539,10 +537,9 @@ int32_t zng_inflateEnd(zng_stream *strm);
     The following functions are needed only in some special applications.
 */
 
-/*
 Z_EXTERN Z_EXPORT
-int zng_deflateInit2(zng_stream *strm, int  level, int  method, int  windowBits, int  memLevel, int  strategy);
-
+int32_t zng_deflateInit2(zng_stream *strm, int32_t level, int32_t method, int32_t windowBits, int32_t memLevel, int32_t strategy);
+/*
      This is another version of deflateInit with more compression options.  The
    fields zalloc, zfree and opaque must be initialized before by the caller.
 
@@ -822,10 +819,9 @@ int32_t zng_deflateSetHeader(zng_stream *strm, zng_gz_headerp head);
    stream state was inconsistent.
 */
 
-/*
 Z_EXTERN Z_EXPORT
-int zng_inflateInit2(zng_stream *strm, int  windowBits);
-
+int32_t zng_inflateInit2(zng_stream *strm, int32_t windowBits);
+/*
      This is another version of inflateInit with an extra parameter.  The
    fields next_in, avail_in, zalloc, zfree and opaque must be initialized
    before by the caller.
@@ -1063,10 +1059,9 @@ int32_t zng_inflateGetHeader(zng_stream *strm, zng_gz_headerp head);
    stream state was inconsistent.
 */
 
-/*
 Z_EXTERN Z_EXPORT
-int zng_inflateBackInit(zng_stream *strm, int windowBits, unsigned char *window);
-
+int32_t zng_inflateBackInit(zng_stream *strm, int32_t windowBits, uint8_t *window);
+/*
      Initialize the internal stream state for decompression using inflateBack()
    calls.  The fields zalloc, zfree and opaque in strm must be initialized
    before the call.  If zalloc and zfree are NULL, then the default library-
@@ -1791,26 +1786,6 @@ uint32_t zng_crc32_combine_op(uint32_t crc1, uint32_t crc2, const uint32_t *op);
 */
 
                         /* various hacks, don't look :) */
-
-/* zng_deflateInit and zng_inflateInit are macros to allow checking the zlib version
- * and the compiler's view of zng_stream:
- */
-Z_EXTERN Z_EXPORT int32_t zng_deflateInit_(zng_stream *strm, int32_t level, const char *version, int32_t stream_size);
-Z_EXTERN Z_EXPORT int32_t zng_inflateInit_(zng_stream *strm, const char *version, int32_t stream_size);
-Z_EXTERN Z_EXPORT int32_t zng_deflateInit2_(zng_stream *strm, int32_t  level, int32_t  method, int32_t windowBits, int32_t memLevel,
-                                         int32_t strategy, const char *version, int32_t stream_size);
-Z_EXTERN Z_EXPORT int32_t zng_inflateInit2_(zng_stream *strm, int32_t  windowBits, const char *version, int32_t stream_size);
-Z_EXTERN Z_EXPORT int32_t zng_inflateBackInit_(zng_stream *strm, int32_t windowBits, uint8_t *window,
-                                         const char *version, int32_t stream_size);
-
-#define @ZLIB_SYMBOL_PREFIX@zng_deflateInit(strm, level) zng_deflateInit_((strm), (level), ZLIBNG_VERSION, (int32_t)sizeof(zng_stream))
-#define @ZLIB_SYMBOL_PREFIX@zng_inflateInit(strm) zng_inflateInit_((strm), ZLIBNG_VERSION, (int32_t)sizeof(zng_stream))
-#define @ZLIB_SYMBOL_PREFIX@zng_deflateInit2(strm, level, method, windowBits, memLevel, strategy) \
-        zng_deflateInit2_((strm), (level), (method), (windowBits), (memLevel), \
-                     (strategy), ZLIBNG_VERSION, (int32_t)sizeof(zng_stream))
-#define @ZLIB_SYMBOL_PREFIX@zng_inflateInit2(strm, windowBits) zng_inflateInit2_((strm), (windowBits), ZLIBNG_VERSION, (int32_t)sizeof(zng_stream))
-#define @ZLIB_SYMBOL_PREFIX@zng_inflateBackInit(strm, windowBits, window) \
-                        zng_inflateBackInit_((strm), (windowBits), (window), ZLIBNG_VERSION, (int32_t)sizeof(zng_stream))
 
 #ifdef WITH_GZFILEOP
 
